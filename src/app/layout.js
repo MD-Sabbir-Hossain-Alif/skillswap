@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Header/Navbar";
 import Footer from "@/components/Home/Footer";
+import { Toast } from '@heroui/react';
 
 const inter = Inter({
 	variable: "--font-inter",
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
 					{children}
 				</main>
 				<Footer></Footer>
+				<Toast.Provider placement="top" />
 			</body>
 		</html>
 	);

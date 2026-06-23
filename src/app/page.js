@@ -1,11 +1,16 @@
+import Hero from '@/components/Home/Hero';
+import LatestTasks from '@/components/Home/LatestTasks';
+import Stats from '@/components/Home/Stats';
 import React from 'react';
 
-const page = () => {
+const Home = () => {
 	return (
-		<div className="flex items-center justify-center h-screen">
-			<h1>Home Page</h1>
+		<div className="container mx-auto">
+			<Hero />
+			<Stats />
+			<LatestTasks />
 		</div>
 	);
 };
 
-export default page;
+export default Home;

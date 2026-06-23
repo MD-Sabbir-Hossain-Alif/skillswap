@@ -51,22 +51,20 @@ export default function Navbar() {
 
                     {/* Right Side - Desktop */}
                     <div className="hidden md:flex items-center gap-3">
-                        <Button
-                            as={Link}
-                            href="/login"
-                            variant="outline"
-                            className="rounded-2xl border-[#e7e8e9] text-[#191c1d] hover:bg-[#f8f9fa] font-medium"
-                        >
-                            Login
-                        </Button>
+                        <Link href="/login">
+                            <Button
+                                variant="outline"
+                                className="rounded-2xl border-[#e7e8e9] text-[#191c1d] hover:bg-[#f8f9fa] font-medium"
+                            >
+                                Login
+                            </Button>
+                        </Link>
 
-                        <Button
-                            as={Link}
-                            href="/register"
-                            className="rounded-2xl bg-[#2563eb] hover:bg-[#1e53d0] text-white font-semibold"
-                        >
-                            Register
-                        </Button>
+                        <Link href="/register">
+                            <Button className="rounded-2xl bg-[#2563eb] hover:bg-[#1e53d0] text-white font-semibold">
+                                Register
+                            </Button>
+                        </Link>
 
                         {/* User Avatar (shown when logged in) */}
                         <div className="w-8 h-8 rounded-full bg-[#e7e8e9] flex items-center justify-center cursor-pointer hover:bg-[#d9dadb] transition-colors ml-2">

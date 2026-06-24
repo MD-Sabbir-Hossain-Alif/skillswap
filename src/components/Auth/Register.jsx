@@ -10,8 +10,9 @@ const Register = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        image: "",
         password: "",
-        role: "freelancer", // "freelancer" = Find Work, "client" = Hire Talent
+        role: "client", // "freelancer" = Find Work, "client" = Hire Talent
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -27,9 +28,6 @@ const Register = () => {
         setFormData((prev) => ({ ...prev, role }));
     };
 
-    const plan =
-        formData.role === "freelancer" ? "freelancer_free" : "client_free";
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
@@ -38,10 +36,10 @@ const Register = () => {
         try {
             const { error: signUpError } = await authClient.signUp.email({
                 name: formData.name,
+                image: formData.image,
                 email: formData.email,
                 password: formData.password,
                 role: formData.role,
-                plan,
             });
 
             if (signUpError) {
@@ -57,21 +55,21 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#f8f9fa] flex items-center justify-center py-12 px-4">
+        <div className="min-h-screen bg-[#f8f9fa] flex items-center justify-center py-8 px-4">
             <Card className="w-full max-w-md bg-white shadow-xl border border-[#e7e8e9] rounded-3xl overflow-hidden">
                 {/* Header */}
-                <div className="pt-8 pb-6 px-8 text-center">
+                <div className="pt-4 pb-4 px-6 text-center">
                     <h1 className="text-3xl font-bold text-[#191c1d] tracking-tight">
                         Create an account
                     </h1>
-                    <p className="mt-3 text-[#434655] text-[17px]">
+                    {/* <p className="mt-3 text-[#434655] text-[17px]">
                         Join SkillSwap to connect with top talent and find great
                         projects.
-                    </p>
+                    </p> */}
                 </div>
 
-                <div className="px-8 pb-8">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="px-6 pb-4">
+                    <form onSubmit={handleSubmit} className="space-y-3">
                         {error && (
                             <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl text-center">
                                 {error}
@@ -80,15 +78,12 @@ const Register = () => {
 
                         {/* Role Selection */}
                         <div>
-                            <p className="text-sm font-medium text-[#434655] mb-3">
-                                I am looking to...
-                            </p>
                             <div className="grid grid-cols-2 gap-3">
                                 {/* Hire Talent */}
                                 <button
                                     type="button"
                                     onClick={() => handleRoleSelect("client")}
-                                    className={`group relative flex flex-col items-center justify-center gap-2 border-2 rounded-2xl py-6 transition-all hover:shadow-md ${
+                                    className={`group relative flex flex-col items-center justify-center gap-2 border-2 rounded-2xl py-2 transition-all hover:shadow-md ${
                                         formData.role === "client"
                                             ? "border-[#004ac6] bg-[#eef4ff]"
                                             : "border-[#e7e8e9] hover:border-[#c3c6d7]"
@@ -113,7 +108,7 @@ const Register = () => {
                                     onClick={() =>
                                         handleRoleSelect("freelancer")
                                     }
-                                    className={`group relative flex flex-col items-center justify-center gap-2 border-2 rounded-2xl py-6 transition-all hover:shadow-md ${
+                                    className={`group relative flex flex-col items-center justify-center gap-2 border-2 rounded-2xl py-2 transition-all hover:shadow-md ${
                                         formData.role === "freelancer"
                                             ? "border-[#004ac6] bg-[#eef4ff]"
                                             : "border-[#e7e8e9] hover:border-[#c3c6d7]"
@@ -145,7 +140,20 @@ const Register = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="h-12 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
+                                className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
+                            />
+                        </TextField>
+
+                        <TextField>
+                            <Label className="text-[#434655] font-medium">
+                                Image Url
+                            </Label>
+                            <Input
+                                name="image"
+                                placeholder="www.example-image.com"
+                                value={formData.image}
+                                onChange={handleChange}
+                                className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
                             />
                         </TextField>
 
@@ -160,7 +168,7 @@ const Register = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="h-12 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
+                                className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
                             />
                         </TextField>
 
@@ -175,7 +183,7 @@ const Register = () => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
-                                className="h-12 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
+                                className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
                             />
                         </TextField>
 
@@ -184,7 +192,7 @@ const Register = () => {
                             type="submit"
                             fullWidth
                             isPending={isLoading}
-                            className="h-12 rounded-2xl bg-[#2563eb] hover:bg-[#1e53d0] text-white font-semibold text-base shadow-sm transition-all active:scale-[0.985]"
+                            className="h-10 rounded-2xl bg-[#2563eb] hover:bg-[#1e53d0] text-white font-semibold text-base shadow-sm transition-all active:scale-[0.985]"
                         >
                             {isLoading
                                 ? "Creating account..."
@@ -193,7 +201,7 @@ const Register = () => {
                     </form>
 
                     {/* Divider */}
-                    <div className="relative my-6">
+                    <div className="relative my-3">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-[#e7e8e9]"></div>
                         </div>
@@ -208,7 +216,7 @@ const Register = () => {
                     <Button
                         variant="outline"
                         fullWidth
-                        className="h-12 rounded-2xl border-[#e7e8e9] hover:bg-[#f8f9fa] flex items-center justify-center gap-3 text-[#191c1d]"
+                        className="h-10 rounded-2xl border-[#e7e8e9] hover:bg-[#f8f9fa] flex items-center justify-center gap-3 text-[#191c1d]"
                         onClick={async () => {
                             await authClient.signIn.social({
                                 provider: "google",
@@ -225,7 +233,7 @@ const Register = () => {
                     </Button>
 
                     {/* Footer Link */}
-                    <div className="mt-8 text-center text-sm text-[#737686]">
+                    <div className="mt-3 text-center text-sm text-[#737686]">
                         Already have an account?{" "}
                         <Link
                             href={`/signin?redirect=${encodeURIComponent(redirectTo)}`}

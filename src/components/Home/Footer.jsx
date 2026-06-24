@@ -4,13 +4,13 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-t border-[#e7e8e9] pt-16 pb-8">
+        <footer className="bg-white border-t border-[#e7e8e9] pt-16 pb-4">
             <div className="max-w-screen-2xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
                     {/* Brand */}
                     <div className="md:col-span-5">
                         <Link href="/" className="flex items-center">
-                            <span className="text-3xl font-bold text-[#004ac6]">
+                            <span className="text-3xl font-bold text-[#2563eb]">
                                 SkillSwap
                             </span>
                         </Link>
@@ -113,7 +113,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="mt-16 pt-8 border-t border-[#e7e8e9] flex flex-col md:flex-row justify-between items-center text-sm text-[#737686]">
+                <div className="mt-10 pt-4 border-t border-[#e7e8e9] flex flex-col md:flex-row justify-between items-center text-sm text-[#737686]">
                     <p>© 2024 SkillSwap Marketplace. All rights reserved.</p>
                     <div className="flex gap-6 mt-4 md:mt-0">
                         <Link href="/privacy" className="hover:text-[#191c1d]">

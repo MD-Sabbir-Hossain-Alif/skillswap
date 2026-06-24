@@ -125,7 +125,7 @@ export default function ClientDashboard() {
 
                 <div className="grid lg:grid-cols-12 gap-8">
                     {/* Recent Tasks */}
-                    <div className="lg:col-span-7">
+                    <div className="lg:col-span-8">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-2xl font-semibold text-[#191c1d]">
                                 My Recent Tasks
@@ -143,19 +143,19 @@ export default function ClientDashboard() {
                                 <table className="w-full">
                                     <thead>
                                         <tr className="border-b border-[#e7e8e9] bg-[#f8f9fa]">
-                                            <th className="text-left py-4 px-6 font-medium text-[#434655]">
+                                            <th className="text-left py-4 px-4 font-medium text-[#434655]">
                                                 Title
                                             </th>
-                                            <th className="text-left py-4 px-6 font-medium text-[#434655]">
+                                            <th className="text-left py-4 px-4 font-medium text-[#434655]">
                                                 Category
                                             </th>
-                                            <th className="text-left py-4 px-6 font-medium text-[#434655]">
+                                            <th className="text-left py-4 px-4 font-medium text-[#434655]">
                                                 Budget
                                             </th>
-                                            <th className="text-left py-4 px-6 font-medium text-[#434655]">
+                                            <th className="text-left py-4 px-4 font-medium text-[#434655]">
                                                 Deadline
                                             </th>
-                                            <th className="text-left py-4 px-6 font-medium text-[#434655]">
+                                            <th className="text-left py-4 px-4 font-medium text-[#434655]">
                                                 Status
                                             </th>
                                         </tr>
@@ -166,21 +166,21 @@ export default function ClientDashboard() {
                                                 key={index}
                                                 className="hover:bg-[#f8f9fa]"
                                             >
-                                                <td className="py-5 px-6 font-medium text-[#191c1d]">
+                                                <td className="py-5 px-4 font-medium text-[#191c1d]">
                                                     {task.title}
                                                 </td>
-                                                <td className="py-5 px-6 text-[#434655]">
+                                                <td className="py-5 px-4 text-[#434655]">
                                                     {task.category}
                                                 </td>
-                                                <td className="py-5 px-6 font-medium text-[#191c1d]">
+                                                <td className="py-5 px-4 font-medium text-[#191c1d]">
                                                     {task.budget}
                                                 </td>
-                                                <td className="py-5 px-6 text-[#434655]">
+                                                <td className="py-5 px-4 text-[#434655]">
                                                     {task.deadline}
                                                 </td>
-                                                <td className="py-5 px-6">
+                                                <td className="py-5 px-4">
                                                     <span
-                                                        className={`rounded-full px-4 py-1 text-xs font-medium ${
+                                                        className={`rounded-full px-2 py-1 text-xs font-medium ${
                                                             task.status ===
                                                             "Completed"
                                                                 ? "bg-emerald-100 text-emerald-700"
@@ -202,7 +202,7 @@ export default function ClientDashboard() {
                     </div>
 
                     {/* Sidebar */}
-                    <div className="lg:col-span-5 space-y-8">
+                    <div className="lg:col-span-4 space-y-8">
                         {/* Need a new expert? */}
                         <Card className="bg-[#004ac6] text-white rounded-3xl p-8">
                             <h3 className="text-2xl font-semibold mb-3">

@@ -60,6 +60,7 @@ export default function Hero() {
                                 src="https://images.unsplash.com/photo-1603969409447-ba86143a03f6"
                                 alt="Skilled freelancer working on computer"
                                 fill
+                                loading="eager"
                                 className="rounded-3xl shadow-2xl object-cover"
                             />
 

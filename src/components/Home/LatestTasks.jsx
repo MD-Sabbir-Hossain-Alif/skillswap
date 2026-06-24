@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Card, Badge } from "@heroui/react";
+import { Card } from "@heroui/react";
 import { Clock } from "lucide-react";
 
 const tasks = [
@@ -69,12 +69,12 @@ export default function LatestTasks() {
                         >
                             <Card.Header className="pb-4">
                                 <div className="flex justify-between items-center">
-                                    <Badge
+                                    <span
                                         variant="secondary"
-                                        className="bg-[#eef4ff] text-[#004ac6] px-3 py-1 rounded-full text-sm font-medium top-5 right-10"
+                                        className="bg-[#eef4ff] text-[#004ac6] px-3 py-1 rounded-full text-sm font-medium"
                                     >
                                         {task.category}
-                                    </Badge>
+                                    </span>
                                     <span className="font-semibold text-[#191c1d]">
                                         {task.budget}
                                     </span>

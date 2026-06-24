@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
     Button,
     Card,
@@ -15,8 +14,13 @@ import { ShieldCheck } from "lucide-react";
 import { toast } from "@heroui/react";
 import { createTask } from "@/lib/action/tasks";
 import { redirect } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export default function PostTaskForm() {
+    const { data: session } = useSession();
+    // console.log(session);
+    const user = session?.user;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -24,10 +28,15 @@ export default function PostTaskForm() {
         const data = Object.fromEntries(formData.entries());
 
         const payload = {
-            ...data,
             category: "other",
             status: "open",
+            userName: user.name,
+            userId: user.id,
+            userImage: user.image,
+            ...data,
         };
+
+        console.log(payload);
 
         const res = await createTask(payload);
         // console.log("Task Posted:", res);
@@ -143,7 +152,7 @@ export default function PostTaskForm() {
                                         <Input
                                             name="budget"
                                             type="text"
-                                            placeholder="$ 500"
+                                            placeholder="500"
                                             className="h-10 rounded-2xl border border-[#cfcfcf]"
                                         />
                                     </TextField>

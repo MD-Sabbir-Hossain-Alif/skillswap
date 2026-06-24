@@ -3,10 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
-import { User } from "lucide-react";
+import { Avatar } from "@heroui/react";
+import { useSession } from "@/lib/auth-client";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { data: session } = useSession();
+    // console.log(session);
+    const user = session?.user;
 
     return (
         <nav className="sticky top-0 z-50 w-full border-b border-[#e7e8e9] bg-white/80 backdrop-blur-lg">
@@ -15,7 +19,7 @@ export default function Navbar() {
                     {/* Logo */}
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center">
-                            <span className="text-2xl font-bold text-[#004ac6]">
+                            <span className="text-2xl font-bold text-[#2563eb]">
                                 SkillSwap
                             </span>
                         </Link>
@@ -51,25 +55,36 @@ export default function Navbar() {
 
                     {/* Right Side - Desktop */}
                     <div className="hidden md:flex items-center gap-3">
-                        <Link href="/login">
-                            <Button
-                                variant="outline"
-                                className="rounded-2xl border-[#e7e8e9] text-[#191c1d] hover:bg-[#f8f9fa] font-medium"
-                            >
-                                Login
-                            </Button>
-                        </Link>
+                        {user ? (
+                            <h3>Welcome, {user.name}</h3>
+                        ) : (
+                            <>
+                                <Link href="/login">
+                                    <Button
+                                        variant="outline"
+                                        className="rounded-2xl border-[#e7e8e9] text-[#191c1d] hover:bg-[#f8f9fa] font-medium"
+                                    >
+                                        Login
+                                    </Button>
+                                </Link>
 
-                        <Link href="/register">
-                            <Button className="rounded-2xl bg-[#2563eb] hover:bg-[#1e53d0] text-white font-semibold">
-                                Register
-                            </Button>
-                        </Link>
+                                <Link href="/register">
+                                    <Button className="rounded-2xl bg-[#2563eb] hover:bg-[#1e53d0] text-white font-semibold">
+                                        Register
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
 
                         {/* User Avatar (shown when logged in) */}
                         <div className="w-8 h-8 rounded-full bg-[#e7e8e9] flex items-center justify-center cursor-pointer hover:bg-[#d9dadb] transition-colors ml-2">
-                            <User className="w-4 h-4 text-[#434655]" />
-                            {/* Or use real image: <img src="/avatar.jpg" className="w-8 h-8 rounded-full" /> */}
+                            <Avatar color="accent">
+                                <Avatar.Image
+                                    alt="John Doe"
+                                    src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
+                                />
+                                <Avatar.Fallback>AC</Avatar.Fallback>
+                            </Avatar>
                         </div>
                     </div>
 

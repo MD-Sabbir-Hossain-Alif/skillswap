@@ -2,9 +2,18 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Card, Input, Label, TextField, Link } from "@heroui/react";
+import {
+    Button,
+    Card,
+    Input,
+    Label,
+    TextField,
+    Link,
+    TextArea,
+} from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
-import { Briefcase, Wrench, Check } from "lucide-react";
+import { Check, User, Code } from "lucide-react";
+import { createFreelancer } from "@/lib/action/freelancer";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -12,13 +21,18 @@ const Register = () => {
         email: "",
         image: "",
         password: "",
+        skills: "",
+        bio: "",
+        hourlyRate: "",
         role: "client", // "freelancer" = Find Work, "client" = Hire Talent
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const router = useRouter();
     const searchParams = useSearchParams();
-    const redirectTo = searchParams.get("redirect") || "/dashboard";
+    const redirectTo =
+        searchParams.get("redirect") ||
+        `/dashboard/${formData.role === "client" ? "client" : "freelancer"}`;
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,7 +48,7 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            const { error: signUpError } = await authClient.signUp.email({
+            const { data, error } = await authClient.signUp.email({
                 name: formData.name,
                 image: formData.image,
                 email: formData.email,
@@ -42,11 +56,26 @@ const Register = () => {
                 role: formData.role,
             });
 
-            if (signUpError) {
-                setError(signUpError.message || "Failed to create account");
-            } else {
-                router.push(redirectTo);
+            if (error) {
+                setError(error.message || "Failed to create account");
+                return;
             }
+
+            if (formData.role === "freelancer") {
+                await createFreelancer({
+                    userId: data.user.id,
+                    name: formData.name,
+                    image: formData.image,
+                    skills: formData.skills,
+                    // .split(",")
+                    // .map((s) => s.trim())
+                    // .filter(Boolean),
+                    bio: formData.bio,
+                    hourlyRate: Number(formData.hourlyRate) || 0,
+                });
+            }
+
+            router.push(redirectTo);
         } catch (err) {
             setError("Something went wrong. Please try again.");
         } finally {
@@ -90,10 +119,10 @@ const Register = () => {
                                     }`}
                                 >
                                     <div className="w-11 h-11 rounded-2xl bg-white shadow-sm flex items-center justify-center">
-                                        <Briefcase className="w-6 h-6 text-[#004ac6]" />
+                                        <User className="w-6 h-6 text-[#004ac6]" />
                                     </div>
                                     <span className="font-semibold text-[#191c1d]">
-                                        Hire Talent
+                                        Client
                                     </span>
                                     {formData.role === "client" && (
                                         <div className="absolute top-3 right-3 w-6 h-6 bg-[#004ac6] rounded-full flex items-center justify-center">
@@ -115,10 +144,10 @@ const Register = () => {
                                     }`}
                                 >
                                     <div className="w-11 h-11 rounded-2xl bg-white shadow-sm flex items-center justify-center">
-                                        <Wrench className="w-6 h-6 text-[#004ac6]" />
+                                        <Code className="w-6 h-6 text-[#004ac6]" />
                                     </div>
                                     <span className="font-semibold text-[#191c1d]">
-                                        Find Work
+                                        Freelancer
                                     </span>
                                     {formData.role === "freelancer" && (
                                         <div className="absolute top-3 right-3 w-6 h-6 bg-[#004ac6] rounded-full flex items-center justify-center">
@@ -186,6 +215,62 @@ const Register = () => {
                                 className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
                             />
                         </TextField>
+
+                        {formData.role === "freelancer" && (
+                            <div className="p-2 border border-blue-400 rounded-2xl bg-blue-100">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="w-6 h-6 rounded-full text-[#004ac6] flex items-center justify-center text-lg">
+                                        <Code />
+                                    </div>
+                                    <h3 className="font-semibold text-[#191c1d]">
+                                        Freelancer Profile
+                                    </h3>
+                                </div>
+
+                                <TextField>
+                                    <Label className="text-[#434655] font-medium">
+                                        Skills (comma-separated)
+                                    </Label>
+                                    <Input
+                                        name="skills"
+                                        placeholder="React, Node.js, Design, Writing"
+                                        value={formData.skills}
+                                        onChange={handleChange}
+                                        className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
+                                    />
+                                </TextField>
+
+                                <TextField>
+                                    <Label className="text-[#434655] font-medium">
+                                        Bio
+                                    </Label>
+                                    <TextArea
+                                        name="bio"
+                                        placeholder="Tell clients about yourself..."
+                                        value={formData.bio}
+                                        onChange={handleChange}
+                                        className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
+                                    />
+                                </TextField>
+
+                                <TextField>
+                                    <Label className="text-[#434655] font-medium">
+                                        Hourly Rate (USD){" "}
+                                        <span className="text-[#737686] font-normal">
+                                            (optional)
+                                        </span>
+                                    </Label>
+                                    <Input
+                                        name="hourlyRate"
+                                        type="number"
+                                        placeholder="20"
+                                        value={formData.hourlyRate}
+                                        onChange={handleChange}
+                                        className="h-8 rounded-2xl border-[#e7e8e9] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb]"
+                                    />
+                                </TextField>
+                            </div>
+                        )}
 
                         {/* Submit Button */}
                         <Button

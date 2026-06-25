@@ -4,7 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import { Avatar } from "@heroui/react";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
+import NavLink from "./NavLink";
+import { CiLogout } from "react-icons/ci";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,35 +30,45 @@ export default function Navbar() {
                     {/* Desktop Navigation */}
                     <ul className="hidden md:flex items-center gap-8">
                         <li>
-                            <Link
-                                href="/"
-                                className="text-[#434655] hover:text-[#191c1d] transition-colors font-medium"
-                            >
-                                Home
-                            </Link>
+                            <NavLink href="/">Home</NavLink>
                         </li>
                         <li>
-                            <Link
-                                href="/tasks"
-                                className="text-[#004ac6] font-semibold border-b-2 border-[#004ac6] pb-1 transition-colors"
-                            >
-                                Browse Tasks
-                            </Link>
+                            <NavLink href="/tasks">Browse Tasks</NavLink>
                         </li>
                         <li>
-                            <Link
-                                href="/freelancers"
-                                className="text-[#434655] hover:text-[#191c1d] transition-colors font-medium"
-                            >
+                            <NavLink href="/freelancers">
                                 Browse Freelancers
-                            </Link>
+                            </NavLink>
                         </li>
                     </ul>
 
                     {/* Right Side - Desktop */}
                     <div className="hidden md:flex items-center gap-3">
                         {user ? (
-                            <h3>Welcome, {user.name}</h3>
+                            <>
+                                <h3>Welcome, {user.name}</h3>
+                                {/* User Avatar (shown when logged in) */}
+                                <div className="w-8 h-8 rounded-full bg-[#e7e8e9] flex items-center justify-center cursor-pointer hover:bg-[#d9dadb] transition-colors ml-2">
+                                    <Avatar color="accent">
+                                        <Avatar.Image
+                                            alt="John Doe"
+                                            src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
+                                        />
+                                        <Avatar.Fallback>AC</Avatar.Fallback>
+                                    </Avatar>
+                                </div>
+                                <span>
+                                    <Button
+                                        variant="outline"
+                                        className="text-red-600"
+                                        onClick={async () => {
+                                            await authClient.signOut();
+                                        }}
+                                    >
+                                        <CiLogout />
+                                    </Button>
+                                </span>
+                            </>
                         ) : (
                             <>
                                 <Link href="/login">
@@ -75,17 +87,6 @@ export default function Navbar() {
                                 </Link>
                             </>
                         )}
-
-                        {/* User Avatar (shown when logged in) */}
-                        <div className="w-8 h-8 rounded-full bg-[#e7e8e9] flex items-center justify-center cursor-pointer hover:bg-[#d9dadb] transition-colors ml-2">
-                            <Avatar color="accent">
-                                <Avatar.Image
-                                    alt="John Doe"
-                                    src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
-                                />
-                                <Avatar.Fallback>AC</Avatar.Fallback>
-                            </Avatar>
-                        </div>
                     </div>
 
                     {/* Mobile Menu Button */}

@@ -1,8 +1,23 @@
-import { Card } from "@heroui/react";
+import { Avatar, Card } from "@heroui/react";
 import { Clock } from "lucide-react";
 
 const TaskCard = ({ task }) => {
     // const {_id, category, budget, title, description, image, due} = task
+
+    const deadline = new Date(task.deadline);
+    const today = new Date();
+
+    const daysLeft = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+
+    const due =
+        daysLeft > 0
+            ? `${daysLeft} days left`
+            : daysLeft === 0
+              ? "Due today"
+              : `${Math.abs(daysLeft)} days overdue`;
+
+    // console.log(due);
+
     return (
         <Card
             key={task._id}
@@ -34,19 +49,21 @@ const TaskCard = ({ task }) => {
 
             <Card.Footer className="pt-4 border-t border-[#e7e8e9] flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <img
-                        src={task.avatar}
-                        alt={task.poster}
-                        className="w-8 h-8 rounded-full"
-                    />
+                    <Avatar color="accent">
+                        <Avatar.Image
+                            alt="John Doe"
+                            src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
+                        />
+                        <Avatar.Fallback>AC</Avatar.Fallback>
+                    </Avatar>
                     <span className="font-medium text-[#191c1d]">
-                        {task.poster}
+                        {task.userName}
                     </span>
                 </div>
 
                 <div className="flex items-center gap-1.5 text-sm text-[#737686]">
                     <Clock className="w-4 h-4" />
-                    {task.due}
+                    {due}
                 </div>
             </Card.Footer>
         </Card>

@@ -1,4 +1,4 @@
-// import { getUserSession } from "@/lib/core/session";
+import { getUserSession } from "@/lib/core/session";
 import {
     IoMenuOutline,
     IoNotificationsOutline,
@@ -17,8 +17,8 @@ import { Building, Users } from "lucide-react";
 import Link from "next/link";
 
 export async function DashboardSidebar() {
-    // const user = (await getUserSession());
-    const user = undefined; // Replace with actual user session retrieval logic
+    const user = await getUserSession();
+    // const user = undefined;  Replace with actual user session retrieval logic
 
     const clientNavLinks = [
         { icon: IoHomeOutline, href: "/dashboard/client", label: "Overview" },

@@ -1,7 +1,11 @@
-import React from "react";
+import FreelancersPage from "./FreelancersPage";
 
 const page = () => {
-    return <div></div>;
+    return (
+        <div>
+            <FreelancersPage></FreelancersPage>
+        </div>
+    );
 };
 
 export default page;

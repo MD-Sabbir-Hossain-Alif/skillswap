@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button, Card } from "@heroui/react";
 import { FileText, Clock, CheckCircle, DollarSign } from "lucide-react";
 
-export default function FreelancerDashboard() {
+export default function FreelancerDashboard({ freelancer }) {
     const recentProposals = [
         {
             task: "Frontend Development for SaaS",

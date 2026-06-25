@@ -1,11 +1,11 @@
 import TaskCard from "@/components/Dashboard/TaskCard";
-import { getTaskById } from "@/lib/api/tasks";
+import { getClientTaskById } from "@/lib/api/tasks";
 import { getUserSession } from "@/lib/core/session";
 
 const page = async () => {
     const user = await getUserSession();
     // console.log(user);
-    const mytasks = await getTaskById(user.id);
+    const mytasks = await getClientTaskById(user.id);
     // console.log(mytasks);
     return (
         <div className="max-w-screen-2xl mx-auto py-6 px-6">

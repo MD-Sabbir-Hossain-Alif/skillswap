@@ -17,9 +17,9 @@ export default function Navbar() {
     return (
         <nav className="sticky top-0 z-50 w-full border-b border-[#e7e8e9] bg-white/80 backdrop-blur-lg">
             <div className="max-w-screen-2xl mx-auto">
-                <header className="flex h-16 items-center justify-between px-6">
+                <header className="flex h-16 items-center justify-between px-4">
                     {/* Logo */}
-                    <div className="flex items-center">
+                    <div className="flex-1 flex items-center">
                         <Link href="/" className="flex items-center">
                             <span className="text-2xl font-bold text-[#2563eb]">
                                 SkillSwap
@@ -28,7 +28,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <ul className="hidden md:flex items-center gap-8">
+                    <ul className="hidden md:flex items-center gap-4">
                         <li>
                             <NavLink href="/">Home</NavLink>
                         </li>
@@ -43,10 +43,13 @@ export default function Navbar() {
                     </ul>
 
                     {/* Right Side - Desktop */}
-                    <div className="hidden md:flex items-center gap-3">
+                    <div className="flex-1 hidden md:flex items-center justify-end gap-3">
                         {user ? (
                             <>
-                                <h3>Welcome, {user.name}</h3>
+                                <NavLink href={`/dashboard/${user.role}`}>
+                                    Dashboard
+                                </NavLink>
+                                <h3>{user.name}</h3>
                                 {/* User Avatar (shown when logged in) */}
                                 <div className="w-8 h-8 rounded-full bg-[#e7e8e9] flex items-center justify-center cursor-pointer hover:bg-[#d9dadb] transition-colors ml-2">
                                     <Avatar color="accent">
@@ -60,7 +63,7 @@ export default function Navbar() {
                                 <span>
                                     <Button
                                         variant="outline"
-                                        className="text-red-600"
+                                        className="text-red-600 hover:bg-danger/30"
                                         onClick={async () => {
                                             await authClient.signOut();
                                         }}

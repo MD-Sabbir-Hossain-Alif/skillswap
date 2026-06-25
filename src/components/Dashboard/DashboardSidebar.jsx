@@ -13,7 +13,7 @@ import {
     IoCardOutline,
 } from "react-icons/io5";
 import { Button, Drawer } from "@heroui/react";
-import { Building, Users } from "lucide-react";
+import { Building, UserCircle, Users } from "lucide-react";
 import Link from "next/link";
 
 export async function DashboardSidebar() {
@@ -47,59 +47,58 @@ export async function DashboardSidebar() {
             href: "/dashboard/client/payments",
             label: "Payments",
         },
+        {
+            icon: UserCircle,
+            href: "/dashboard/freelancer/profile",
+            label: "Edit Profile",
+        },
     ];
 
     const freelancerNavLinks = [
         {
             icon: IoHomeOutline,
             href: "/dashboard/freelancer",
-            label: "Dashboard",
+            label: "Overview",
         },
         {
             icon: IoSearchOutline,
-            href: "/dashboard/freelancer/tasks",
-            label: "Tasks",
+            href: "/tasks",
+            label: "Browse Tasks",
         },
         {
             icon: IoBookmarkOutline,
-            href: "/dashboard/freelancer/saved-jobs",
-            label: "Saved Jobs",
+            href: "/dashboard/freelancer/proposals",
+            label: "My Proposals",
         },
         {
             icon: IoDocumentTextOutline,
-            href: "/dashboard/freelancer/applications",
-            label: "Applications",
+            href: "/dashboard/freelancer/projects",
+            label: "Active-Projects",
         },
         {
             icon: IoCardOutline,
-            href: "/dashboard/freelancer/billing",
-            label: "Billing",
+            href: "/dashboard/freelancer/earnings",
+            label: "My Earnings",
         },
-        { icon: IoSettingsOutline, href: "/settings", label: "Settings" },
+        {
+            icon: UserCircle,
+            href: "/dashboard/freelancer/profile",
+            label: "Edit Profile",
+        },
     ];
 
     const adminNavLinks = [
-        { icon: IoHomeOutline, href: "/dashboard/admin", label: "Dashboard" },
+        { icon: IoHomeOutline, href: "/dashboard/admin", label: "Overview" },
         { icon: Users, href: "/dashboard/admin/users", label: "Users" },
         {
             icon: Building,
-            href: "/dashboard/admin/companies",
-            label: "Companies",
+            href: "/dashboard/admin/tasks",
+            label: "Tasks",
         },
         {
             icon: IoBriefcaseOutline,
-            href: "/dashboard/admin/jobs",
-            label: "Jobs",
-        },
-        {
-            icon: IoCardOutline,
             href: "/dashboard/admin/payments",
             label: "Payments",
-        },
-        {
-            icon: IoSettingsOutline,
-            href: "/dashboard/admin/settings",
-            label: "Settings",
         },
     ];
 

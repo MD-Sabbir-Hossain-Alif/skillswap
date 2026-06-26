@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Card, Input, Label, TextField, Link } from "@heroui/react";
-import { authClient } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -35,7 +35,9 @@ const Login = () => {
             if (signInError) {
                 setError(signInError.message || "Invalid email or password");
             } else {
-                router.push(redirectTo);
+                setTimeout(() => {
+                    router.push(redirectTo);
+                }, 1000);
             }
         } catch (err) {
             setError("Something went wrong. Please try again.");

@@ -1,9 +1,12 @@
+import { getUserSession } from "@/lib/core/session";
 import { Avatar, Card } from "@heroui/react";
 import { Clock } from "lucide-react";
 import Link from "next/link";
 
-const TaskCard = ({ task }) => {
+const TaskCard = async ({ task }) => {
     // const {_id, category, budget, title, description, image, due} = task
+    const user = await getUserSession();
+    // console.log(user);
 
     const deadline = new Date(task.deadline);
     const today = new Date();
@@ -19,8 +22,10 @@ const TaskCard = ({ task }) => {
 
     // console.log(due);
 
+    const url = user ? `/tasks/${task._id}` : "/login";
+    console.log(url);
     return (
-        <Link href={`/tasks/${task._id}`}>
+        <Link href={url}>
             <Card
                 key={task._id}
                 className="border border-[#e7e8e9] hover:border-blue-400 rounded-3xl hover:shadow-md transition-all hover:-translate-y-1 bg-white overflow-hidden"

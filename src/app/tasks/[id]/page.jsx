@@ -8,6 +8,7 @@ export default async function TaskDetailPage({ params }) {
     const { id } = await params;
     // console.log(id);
 
+    const task = await getTaskById(id);
     const {
         category,
         status,
@@ -18,7 +19,7 @@ export default async function TaskDetailPage({ params }) {
         description,
         budget,
         deadline,
-    } = await getTaskById(id);
+    } = task;
     // console.log(res);
 
     const today = new Date();
@@ -155,7 +156,7 @@ export default async function TaskDetailPage({ params }) {
 
                     {/* RIGHT COLUMN - Proposal Form */}
                     <div className="lg:col-span-4">
-                        <ProposalCard />
+                        <ProposalCard task={task} />
                     </div>
                 </div>
             </div>

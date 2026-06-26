@@ -1,21 +1,68 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Button, Card, Input, TextArea, Label, TextField } from "@heroui/react";
+import {
+    Button,
+    Card,
+    Input,
+    TextArea,
+    Label,
+    TextField,
+    toast,
+} from "@heroui/react";
+import { useSession } from "@/lib/auth-client";
+import { createProposal } from "@/lib/action/proposal";
+import { redirect } from "next/navigation";
 
-const ProposalCard = () => {
+const ProposalCard = ({ task }) => {
     const [hasApplied, setHasApplied] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
+    const { data: session } = useSession();
+    // console.log(session);
+    const user = session?.user;
+    // console.log(user);
+
+    if (user) {
+        setIsLogin(true);
+    }
+
+    if (!isLogin) {
+        redirect("/login");
+        return;
+    }
 
     const handleSubmitProposal = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        setTimeout(() => {
-            setHasApplied(true);
-            setIsSubmitting(false);
-            alert("✅ Proposal submitted successfully!");
-        }, 1000);
+        const formData = new FormData(e.currentTarget);
+        const data = Object.fromEntries(formData.entries());
+
+        const payload = {
+            taskId: task._id,
+            freelancerName: user.name,
+            freelancerEmail: user.email,
+            userId: user.id,
+            userImage: user.image,
+            status: "pending",
+            ...data,
+        };
+
+        console.log(payload);
+        const res = await createProposal(payload);
+        console.log("Proposal Posted:", res);
+
+        if (res.insertedId) {
+            console.log("Proposal Posted:", res.insertedId);
+            toast.success("✅ Proposal submitted successfully!");
+            e.target.reset();
+            setTimeout(() => {
+                setHasApplied(true);
+                setIsSubmitting(false);
+                redirect("/dashboard/freelancer/tasks");
+            }, 1000);
+        }
     };
 
     return (
@@ -30,6 +77,7 @@ const ProposalCard = () => {
                     <TextField>
                         <Label>Proposed Budget ($)</Label>
                         <Input
+                            name="budget"
                             type="number"
                             placeholder="e.g. 6000"
                             className="rounded-2xl border border-gray-300"
@@ -40,6 +88,7 @@ const ProposalCard = () => {
                     <TextField>
                         <Label>Estimated Delivery (Days)</Label>
                         <Input
+                            name="estimatedDay"
                             type="number"
                             placeholder="e.g. 40"
                             className="rounded-2xl border border-gray-300"
@@ -50,6 +99,7 @@ const ProposalCard = () => {
                     <TextField>
                         <Label>Cover Note</Label>
                         <TextArea
+                            name="coverNote"
                             placeholder="Highlight why you're the best fit for this task..."
                             className="min-h-15 rounded-3xl border border-gray-300"
                             required

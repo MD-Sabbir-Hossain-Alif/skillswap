@@ -3,10 +3,16 @@ import { Avatar, Card } from "@heroui/react";
 import { UserCheck, DollarSign, Calendar } from "lucide-react";
 import ProposalCard from "./ProposalCard";
 import { getTaskById } from "@/lib/api/tasks";
+import { getUserSession } from "@/lib/core/session";
+import { redirect } from "next/navigation";
 
 export default async function TaskDetailPage({ params }) {
     const { id } = await params;
     // console.log(id);
+    const user = await getUserSession();
+    if (!user) {
+        return redirect("/login");
+    }
 
     const task = await getTaskById(id);
     const {

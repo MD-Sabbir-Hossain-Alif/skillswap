@@ -5,7 +5,7 @@ export const getTasks = async () => {
 }
 
 export const getClientTaskById = async (taskId) => {
-    return serverFetch(`/api/tasks/${taskId}`);
+    return serverFetch(`/api/client/tasks/${taskId}`);
 }
 
 export const getTaskById = async (taskId) => {

@@ -53,7 +53,7 @@ const ProposalCard = ({ task }) => {
             setTimeout(() => {
                 setHasApplied(true);
                 setIsSubmitting(false);
-                redirect("/dashboard/freelancer/tasks");
+                redirect("/dashboard/freelancer/proposals");
             }, 1000);
         }
     };

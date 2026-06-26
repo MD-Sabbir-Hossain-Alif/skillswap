@@ -45,7 +45,7 @@ const TaskCard = async ({ task }) => {
                 </Card.Header>
 
                 <Card.Content className="space-y-4 pb-6">
-                    <Card.Title className="text-xl font-semibold leading-tight text-[#191c1d]">
+                    <Card.Title className="text-xl font-semibold leading-tight text-[#191c1d] line-clamp-1">
                         {task.title}
                     </Card.Title>
 

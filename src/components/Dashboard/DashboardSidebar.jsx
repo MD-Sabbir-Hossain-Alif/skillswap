@@ -34,7 +34,7 @@ export async function DashboardSidebar() {
         },
         {
             icon: IoBriefcaseOutline,
-            href: "freelancers",
+            href: "/freelancers",
             label: "Freelancers",
         },
         {
@@ -49,7 +49,7 @@ export async function DashboardSidebar() {
         },
         {
             icon: UserCircle,
-            href: "/dashboard/freelancer/profile",
+            href: "/dashboard/client/profile",
             label: "Edit Profile",
         },
     ];

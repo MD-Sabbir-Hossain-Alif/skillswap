@@ -1,10 +1,12 @@
 "use client";
 
 import { deleteTask } from "@/lib/action/tasks";
-import { Button, Modal } from "@heroui/react";
+import { Button, Modal, toast } from "@heroui/react";
 import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function DeleteTaskModal({ task }) {
+    const router = useRouter();
     const handleDelete = async () => {
         const res = await deleteTask(task._id);
         // console.log("Task Deleted:", res);
@@ -16,15 +18,16 @@ export function DeleteTaskModal({ task }) {
     };
     return (
         <Modal>
-            <Button variant="danger-soft" className="rounded-2xl px-4 py-1">
+            <Button variant="danger" className="rounded-full px-3 py-1">
                 <Trash className="w-4 h-4" />
+                Delete
             </Button>
             <Modal.Backdrop>
                 <Modal.Container>
                     <Modal.Dialog className="sm:max-w-90">
                         <Modal.CloseTrigger />
                         <Modal.Header>
-                            <Modal.Icon className=" mx-auto bg-default text-red-500">
+                            <Modal.Icon className=" mx-auto bg-red-600 text-white">
                                 <Trash className="size-5" />
                             </Modal.Icon>
                             <Modal.Heading className="text-red-500 text-center font-bold">
@@ -43,6 +46,7 @@ export function DeleteTaskModal({ task }) {
                         </Modal.Body>
                         <Modal.Footer>
                             <Button
+                                onClick={handleDelete}
                                 variant="danger"
                                 className="w-full"
                                 slot="close"

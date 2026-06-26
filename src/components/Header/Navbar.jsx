@@ -6,11 +6,9 @@ import { Button } from "@heroui/react";
 import { Avatar } from "@heroui/react";
 import { authClient, useSession } from "@/lib/auth-client";
 import NavLink from "./NavLink";
-import { CiLogout } from "react-icons/ci";
-import { useRouter } from "next/navigation";
+import { MdLogout } from "react-icons/md";
 
 export default function Navbar() {
-    const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { data: session } = useSession();
     // console.log(session);
@@ -64,14 +62,14 @@ export default function Navbar() {
                                 </div>
                                 <span>
                                     <Button
-                                        variant="outline"
-                                        className="text-red-600 hover:bg-danger/30"
+                                        variant="danger"
+                                        className="rounded-full px-3 py-1 rotate-180"
                                         onClick={async () => {
                                             await authClient.signOut();
                                             window.location.reload();
                                         }}
                                     >
-                                        <CiLogout />
+                                        <MdLogout />
                                     </Button>
                                 </span>
                             </>

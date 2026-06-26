@@ -41,8 +41,12 @@ export default function EditTaskModal({ task }) {
     };
     return (
         <Modal state={state}>
-            <Button variant="outline" className="rounded-2xl px-4 py-1">
+            <Button
+                variant="outline"
+                className="rounded-full bg-[#2563eb] text-white hover:bg-[#1e53d0] px-3 py-1"
+            >
                 <Edit className="w-4 h-4" />
+                Edit
             </Button>
             <Modal.Backdrop>
                 <Modal.Container className="max-w-5xl">

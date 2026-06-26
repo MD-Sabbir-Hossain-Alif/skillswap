@@ -1,3 +1,5 @@
+import { DeleteTaskModal } from "@/components/Dashboard/DeleteTaskModal";
+import EditTaskModal from "@/components/Dashboard/EditTaskModal";
 import { getUserSession } from "@/lib/core/session";
 import { Avatar, Button, Card } from "@heroui/react";
 import { Code, Delete, Edit, Trash } from "lucide-react";
@@ -59,15 +61,8 @@ const MyTaskCard = async ({ task }) => {
                 <div className="flex items-center gap-1.5">Proposal(0)</div>
 
                 <div className="flex items-center gap-3">
-                    <Button variant="outline" className="rounded-2xl px-4 py-1">
-                        <Edit className="w-4 h-4" />
-                    </Button>
-                    <Button
-                        variant="danger-soft"
-                        className="rounded-2xl px-4 py-1"
-                    >
-                        <Trash className="w-4 h-4" />
-                    </Button>
+                    <EditTaskModal task={task} />
+                    <DeleteTaskModal task={task} />
                 </div>
             </Card.Footer>
         </Card>

@@ -8,7 +8,7 @@ export const createTask = async (newTaskData) => {
 }
 
 export const updateTask = async (taskId, updatedTaskData) => {
-    return serverMutation(`/api/tasks/${taskId}`, updatedTaskData, 'PUT');
+    return serverMutation(`/api/tasks/${taskId}`, updatedTaskData, 'PATCH');
 }
 
 export const deleteTask = async (taskId) => {

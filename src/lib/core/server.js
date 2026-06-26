@@ -8,9 +8,9 @@ export const serverFetch = async (path) => {
 }
 
 
-export const serverMutation = async (path, data) => {
+export const serverMutation = async (path, data, method = "POST") => {
     const res = await fetch(`${baseUrl}${path}`, {
-        method: 'POST',
+        method,
         headers: {
             'Content-Type': 'application/json',
         },
@@ -19,6 +19,8 @@ export const serverMutation = async (path, data) => {
     // handle 401, 404, 403
 
     console.log('serverMutation response:', data);
+    console.log(`${baseUrl}${path}`);
+    console.log(method);
 
     return res.json();
 }

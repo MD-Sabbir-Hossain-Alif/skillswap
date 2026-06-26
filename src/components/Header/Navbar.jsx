@@ -7,8 +7,10 @@ import { Avatar } from "@heroui/react";
 import { authClient, useSession } from "@/lib/auth-client";
 import NavLink from "./NavLink";
 import { CiLogout } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+    const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { data: session } = useSession();
     // console.log(session);
@@ -66,6 +68,7 @@ export default function Navbar() {
                                         className="text-red-600 hover:bg-danger/30"
                                         onClick={async () => {
                                             await authClient.signOut();
+                                            window.location.reload();
                                         }}
                                     >
                                         <CiLogout />

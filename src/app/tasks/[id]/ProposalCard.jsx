@@ -42,9 +42,9 @@ const ProposalCard = ({ task }) => {
             ...data,
         };
 
-        console.log(payload);
+        // console.log(payload);
         const res = await createProposal(payload);
-        console.log("Proposal Posted:", res);
+        // console.log("Proposal Posted:", res);
 
         if (res.insertedId) {
             console.log("Proposal Posted:", res.insertedId);

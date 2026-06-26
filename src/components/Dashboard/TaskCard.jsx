@@ -23,7 +23,7 @@ const TaskCard = async ({ task }) => {
     // console.log(due);
 
     const url = user ? `/tasks/${task._id}` : "/login";
-    console.log(url);
+    // console.log(url);
     return (
         <Link href={url}>
             <Card

@@ -6,7 +6,7 @@ const page = async () => {
     const user = await getUserSession();
     // console.log(user);
     const mytasks = await getClientTaskById(user.id);
-    console.log(mytasks[0]);
+    // console.log(mytasks[0]);
     return (
         <div className="max-w-screen-2xl mx-auto py-6 px-6">
             {/* Header */}

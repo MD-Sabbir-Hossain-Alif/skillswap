@@ -17,6 +17,12 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        },
+    },
     user: {
         additionalFields: {
             role: {
@@ -26,5 +32,20 @@ export const auth = betterAuth({
                 default: false
             },
         }
+    },
+    databaseHooks: {
+        user: {
+            create: {
+                before: async (user) => {
+                    return {
+                        data: {
+                            ...user,
+                            role: "client",
+                            isBlocked: false,
+                        },
+                    };
+                },
+            },
+        },
     },
 });

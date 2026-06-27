@@ -83,6 +83,13 @@ const Register = () => {
         }
     };
 
+    const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: redirectTo,
+        });
+    };
+
     return (
         <div className="min-h-screen bg-[#f8f9fa] flex items-center justify-center py-8 px-4">
             <Card className="w-full max-w-md bg-white shadow-xl border border-[#e7e8e9] rounded-3xl overflow-hidden">
@@ -302,12 +309,7 @@ const Register = () => {
                         variant="outline"
                         fullWidth
                         className="h-10 rounded-2xl border-[#e7e8e9] hover:bg-[#f8f9fa] flex items-center justify-center gap-3 text-[#191c1d]"
-                        onClick={async () => {
-                            await authClient.signIn.social({
-                                provider: "google",
-                                callbackURL: redirectTo,
-                            });
-                        }}
+                        onClick={handleGoogleSignIn}
                     >
                         <img
                             src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"

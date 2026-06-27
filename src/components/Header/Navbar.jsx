@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import { Avatar } from "@heroui/react";
 import { authClient, useSession } from "@/lib/auth-client";
 import NavLink from "./NavLink";
@@ -10,7 +10,7 @@ import { MdLogout } from "react-icons/md";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { data: session } = useSession();
+    const { data: session, isPending } = useSession();
     // console.log(session);
     const user = session?.user;
 
@@ -44,7 +44,9 @@ export default function Navbar() {
 
                     {/* Right Side - Desktop */}
                     <div className="flex-1 hidden md:flex items-center justify-end gap-3">
-                        {user ? (
+                        {isPending ? (
+                            <Spinner />
+                        ) : user ? (
                             <>
                                 <NavLink href={`/dashboard/${user.role}`}>
                                     Dashboard

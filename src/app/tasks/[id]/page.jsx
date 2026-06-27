@@ -5,6 +5,7 @@ import ProposalCard from "./ProposalCard";
 import { getTaskById } from "@/lib/api/tasks";
 import { getUserSession } from "@/lib/core/session";
 import { redirect } from "next/navigation";
+import { getProposalsByTaskId } from "@/lib/api/proposals";
 
 export default async function TaskDetailPage({ params }) {
     const { id } = await params;
@@ -15,6 +16,19 @@ export default async function TaskDetailPage({ params }) {
     }
 
     const task = await getTaskById(id);
+
+    const proposals = await getProposalsByTaskId(id);
+    // console.log(id);
+    // console.log(isHaveProposal);
+    const isHaveProposal = proposals.find(
+        (proposal) => proposal.userId === user.id,
+    );
+    let alreadyApplied = false;
+    if (isHaveProposal) {
+        alreadyApplied = true;
+    }
+    // console.log(isHaveProposal);
+
     const {
         category,
         status,
@@ -162,7 +176,11 @@ export default async function TaskDetailPage({ params }) {
 
                     {/* RIGHT COLUMN - Proposal Form */}
                     <div className="lg:col-span-4">
-                        <ProposalCard task={task} />
+                        <ProposalCard
+                            task={task}
+                            user={user}
+                            alreadyApplied={alreadyApplied}
+                        />
                     </div>
                 </div>
             </div>

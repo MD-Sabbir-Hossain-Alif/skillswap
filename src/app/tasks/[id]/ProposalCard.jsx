@@ -10,16 +10,13 @@ import {
     TextField,
     toast,
 } from "@heroui/react";
-import { useSession } from "@/lib/auth-client";
 import { createProposal } from "@/lib/action/proposal";
 import { redirect } from "next/navigation";
 
-const ProposalCard = ({ task }) => {
-    const [hasApplied, setHasApplied] = useState(false);
+const ProposalCard = ({ task, user, alreadyApplied }) => {
+    const [hasApplied, setHasApplied] = useState(alreadyApplied);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { data: session } = useSession();
-    // console.log(session);
-    const user = session?.user;
+
     // console.log(user);
 
     const isLogin = user?.role === "freelancer";
@@ -28,6 +25,8 @@ const ProposalCard = ({ task }) => {
     const handleSubmitProposal = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+
+        if (!user) return;
 
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData.entries());

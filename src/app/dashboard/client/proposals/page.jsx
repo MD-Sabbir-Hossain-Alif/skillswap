@@ -1,6 +1,12 @@
+import { getProposalsByClientId } from "@/lib/api/proposals";
 import ProposalsCard from "./ProposalsCard";
+import { getUserSession } from "@/lib/core/session";
 
-export default function ManageProposals() {
+export default async function ManageProposals() {
+    const user = await getUserSession();
+    const proposalsData = await getProposalsByClientId(user.id);
+    console.log(proposalsData);
+
     return (
         <div className="min-h-screen bg-[#f8f9fa] p-4 lg:p-6">
             <div className="max-w-4xl">
@@ -8,7 +14,7 @@ export default function ManageProposals() {
                     Manage Proposals
                 </h1>
 
-                <ProposalsCard />
+                <ProposalsCard proposalsData={proposalsData} />
             </div>
         </div>
     );

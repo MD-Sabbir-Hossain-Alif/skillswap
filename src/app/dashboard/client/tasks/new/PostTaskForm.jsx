@@ -47,7 +47,7 @@ export default function PostTaskForm() {
             e.target.reset();
             setTimeout(() => {
                 redirect("/dashboard/client/tasks");
-            }, 2000);
+            }, 1000);
         }
     };
 

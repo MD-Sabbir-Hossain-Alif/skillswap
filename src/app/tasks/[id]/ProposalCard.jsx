@@ -33,9 +33,11 @@ const ProposalCard = ({ task, user, alreadyApplied }) => {
 
         const payload = {
             taskId: task._id,
+            clientId: task.userId,
+            taskTitle: task.title,
             freelancerName: user.name,
             freelancerEmail: user.email,
-            userId: user.id,
+            freelancerId: user.id,
             userImage: user.image,
             status: "pending",
             ...data,

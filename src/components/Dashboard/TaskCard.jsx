@@ -38,8 +38,8 @@ const TaskCard = async ({ task }) => {
                         >
                             {task.category}
                         </span>
-                        <span className="font-semibold text-[#191c1d]">
-                            {task.budget}
+                        <span className="font-bold text-[#191c1d]">
+                            $ {task.budget}
                         </span>
                     </div>
                 </Card.Header>

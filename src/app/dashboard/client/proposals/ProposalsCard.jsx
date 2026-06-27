@@ -5,88 +5,88 @@ import Link from "next/link";
 import { Button, Card, Badge } from "@heroui/react";
 import { Clock } from "lucide-react";
 
-const proposalsData = [
-    {
-        taskId: "6a3be009ca203471fe5cdc27",
-        taskTitle: "Develop an E-commerce Mobile Application",
-        proposals: [
-            {
-                _id: "6a3e8ede3aa716c1d23dc75a",
-                freelancerName: "Freelancer1",
-                freelancerEmail: "freelancer1@gmail.com",
-                userImage: "https://i.pravatar.cc/64?u=f1",
-                status: "pending",
-                budget: "400",
-                estimatedDay: "12",
-                coverNote:
-                    "We are looking for an experienced frontend developer to create a modern, responsive, and high-performance e-commerce landing page.",
-                submittedAt: "2026-06-26T14:38:22.601Z",
-            },
-            {
-                _id: "6a3e8ede3aa716c1d23dc75b",
-                freelancerName: "Alex Rivera",
-                freelancerEmail: "alex.r@gmail.com",
-                userImage: "https://i.pravatar.cc/64?u=alex",
-                status: "pending",
-                budget: "650",
-                estimatedDay: "18",
-                coverNote:
-                    "I have 5+ years experience building React Native apps with clean architecture and excellent performance.",
-                submittedAt: "2026-06-26T15:12:45.601Z",
-            },
-        ],
-    },
-    {
-        taskId: "6a3be009ca203471fe5cdc28",
-        taskTitle: "Redesign Company Website Landing Page",
-        proposals: [
-            {
-                _id: "6a3e8ede3aa716c1d23dc75c",
-                freelancerName: "Sarah Chen",
-                freelancerEmail: "sarah.design@gmail.com",
-                userImage: "https://i.pravatar.cc/64?u=sarah",
-                status: "accepted",
-                budget: "850",
-                estimatedDay: "7",
-                coverNote:
-                    "I specialize in modern, conversion-focused landing page designs with strong UI/UX principles.",
-                submittedAt: "2026-06-25T10:22:15.601Z",
-            },
-        ],
-    },
-    {
-        taskId: "6a3be009ca203471fe5cdc29",
-        taskTitle: "Build REST API for Inventory Management",
-        proposals: [
-            {
-                _id: "6a3e8ede3aa716c1d23dc75d",
-                freelancerName: "Michael Torres",
-                freelancerEmail: "mike.dev@gmail.com",
-                userImage: "https://i.pravatar.cc/64?u=mike",
-                status: "pending",
-                budget: "1200",
-                estimatedDay: "14",
-                coverNote:
-                    "Experienced Node.js developer with strong background in building scalable REST APIs using Express and PostgreSQL.",
-                submittedAt: "2026-06-26T09:45:12.601Z",
-            },
-            {
-                _id: "6a3e8ede3aa716c1d23dc75e",
-                freelancerName: "Priya Sharma",
-                freelancerEmail: "priya.code@gmail.com",
-                userImage: "https://i.pravatar.cc/64?u=priya",
-                status: "pending",
-                budget: "950",
-                estimatedDay: "10",
-                coverNote:
-                    "I can deliver a clean, well-documented API with proper authentication and error handling.",
-                submittedAt: "2026-06-26T11:30:55.601Z",
-            },
-        ],
-    },
-];
+// const proposalsData = [
+//     {
+//         taskId: "6a3be009ca203471fe5cdc27",
+//         taskTitle: "Develop an E-commerce Mobile Application",
+//         proposals: [
+//             {
+//                 _id: "6a3e8ede3aa716c1d23dc75a",
+//                 freelancerName: "Freelancer1",
+//                 freelancerEmail: "freelancer1@gmail.com",
+//                 userImage: "https://i.pravatar.cc/64?u=f1",
+//                 status: "pending",
+//                 budget: "400",
+//                 estimatedDay: "12",
+//                 coverNote:
+//                     "We are looking for an experienced frontend developer to create a modern, responsive, and high-performance e-commerce landing page.",
+//                 submittedAt: "2026-06-26T14:38:22.601Z",
+//             },
+//             {
+//                 _id: "6a3e8ede3aa716c1d23dc75b",
+//                 freelancerName: "Alex Rivera",
+//                 freelancerEmail: "alex.r@gmail.com",
+//                 userImage: "https://i.pravatar.cc/64?u=alex",
+//                 status: "pending",
+//                 budget: "650",
+//                 estimatedDay: "18",
+//                 coverNote:
+//                     "I have 5+ years experience building React Native apps with clean architecture and excellent performance.",
+//                 submittedAt: "2026-06-26T15:12:45.601Z",
+//             },
+//         ],
+//     },
+//     {
+//         taskId: "6a3be009ca203471fe5cdc28",
+//         taskTitle: "Redesign Company Website Landing Page",
+//         proposals: [
+//             {
+//                 _id: "6a3e8ede3aa716c1d23dc75c",
+//                 freelancerName: "Sarah Chen",
+//                 freelancerEmail: "sarah.design@gmail.com",
+//                 userImage: "https://i.pravatar.cc/64?u=sarah",
+//                 status: "accepted",
+//                 budget: "850",
+//                 estimatedDay: "7",
+//                 coverNote:
+//                     "I specialize in modern, conversion-focused landing page designs with strong UI/UX principles.",
+//                 submittedAt: "2026-06-25T10:22:15.601Z",
+//             },
+//         ],
+//     },
+//     {
+//         taskId: "6a3be009ca203471fe5cdc29",
+//         taskTitle: "Build REST API for Inventory Management",
+//         proposals: [
+//             {
+//                 _id: "6a3e8ede3aa716c1d23dc75d",
+//                 freelancerName: "Michael Torres",
+//                 freelancerEmail: "mike.dev@gmail.com",
+//                 userImage: "https://i.pravatar.cc/64?u=mike",
+//                 status: "pending",
+//                 budget: "1200",
+//                 estimatedDay: "14",
+//                 coverNote:
+//                     "Experienced Node.js developer with strong background in building scalable REST APIs using Express and PostgreSQL.",
+//                 submittedAt: "2026-06-26T09:45:12.601Z",
+//             },
+//             {
+//                 _id: "6a3e8ede3aa716c1d23dc75e",
+//                 freelancerName: "Priya Sharma",
+//                 freelancerEmail: "priya.code@gmail.com",
+//                 userImage: "https://i.pravatar.cc/64?u=priya",
+//                 status: "pending",
+//                 budget: "950",
+//                 estimatedDay: "10",
+//                 coverNote:
+//                     "I can deliver a clean, well-documented API with proper authentication and error handling.",
+//                 submittedAt: "2026-06-26T11:30:55.601Z",
+//             },
+//         ],
+//     },
+// ];
 
-const ProposalsCard = () => {
+const ProposalsCard = ({ proposalsData }) => {
     const [proposals, setProposals] = useState(proposalsData);
     const [expandedTasks, setExpandedTasks] = useState({});
 

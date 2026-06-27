@@ -8,6 +8,6 @@ export const getProposalsByTaskId = async (taskId) => {
     return serverFetch(`/api/proposals/task/${taskId}`);
 }
 
-export const getProposalsByUserId = async (userId) => {
-    return serverFetch(`/api/proposals/user/${userId}`);
+export const getProposalsByClientId = async (clientId) => {
+    return serverFetch(`/api/proposals/client/${clientId}`);
 }

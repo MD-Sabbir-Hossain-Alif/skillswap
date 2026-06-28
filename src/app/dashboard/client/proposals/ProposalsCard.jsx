@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Card, Badge } from "@heroui/react";
 import { Clock } from "lucide-react";
+import { updateProposal } from "@/lib/action/proposal";
 
 // const proposalsData = [
 //     {
@@ -119,36 +120,11 @@ const ProposalsCard = ({ proposalsData }) => {
     //     alert("Proposal accepted successfully!");
     // };
 
-    // const handleCheckout = async (proposalId) => {
-    //     const res = await fetch("/api/checkout_sessions", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             proposalId,
-    //         }),
-    //     });
-    // };
-
-    const handleReject = (taskId, proposalId) => {
+    const handleReject = async (proposalId) => {
         if (!confirm("Reject this proposal?")) return;
 
-        setProposals((prev) =>
-            prev.map((task) => {
-                if (task.taskId === taskId) {
-                    return {
-                        ...task,
-                        proposals: task.proposals.map((p) =>
-                            p._id === proposalId
-                                ? { ...p, status: "rejected" }
-                                : p,
-                        ),
-                    };
-                }
-                return task;
-            }),
-        );
+        const res = updateProposal(proposalId, { status: "rejected" });
+        console.log(res);
     };
     return (
         <>

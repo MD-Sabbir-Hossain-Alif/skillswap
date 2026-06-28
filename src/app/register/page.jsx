@@ -1,11 +1,17 @@
 import RegisterPage from "@/components/Auth/Register";
-import React from "react";
+import React, { Suspense } from "react";
 
 const Register = () => {
     return (
-        <div>
+        <Suspense
+            fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                    Loading...
+                </div>
+            }
+        >
             <RegisterPage />
-        </div>
+        </Suspense>
     );
 };
 

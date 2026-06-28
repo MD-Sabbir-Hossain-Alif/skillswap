@@ -2,10 +2,40 @@
 
 import Link from "next/link";
 import { CheckCircle, ArrowRight, Home } from "lucide-react";
+import { createPayments } from "@/lib/action/payments";
+import { stripe } from "@/lib/stripe";
 
 export default async function PaymentSuccess({ searchParams }) {
     const { session_id } = await searchParams;
     console.log(session_id);
+
+    if (!session_id)
+        throw new Error("Please provide a valid session_id (`cs_test_...`)");
+
+    const {
+        status,
+        customer_details: { email: customerEmail },
+        metadata,
+    } = await stripe.checkout.sessions.retrieve(session_id, {
+        expand: ["line_items", "payment_intent"],
+    });
+
+    if (status === "open") {
+        return redirect("/");
+    }
+
+    if (status === "complete") {
+        const paymentData = {
+            proposalId: metadata.proposalId,
+            clientEmail: customerEmail,
+            amount: metadata.budget,
+            currency: "usd",
+        };
+
+        // update the proposal status to accepted
+        const res = await createPayments(paymentData);
+        // console.log(res);
+    }
 
     if (!session_id) {
         return (

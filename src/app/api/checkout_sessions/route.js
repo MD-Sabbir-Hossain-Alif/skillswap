@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 
-import { stripe } from '../../../lib/stripe'
+import { stripe } from '@/lib/stripe';
 import { getProposalById } from '@/lib/api/proposals'
 import { getUserSession } from '@/lib/core/session'
 
@@ -35,7 +35,7 @@ export async function POST(req) {
                 },
             ],
             mode: 'payment',
-            metadata: { proposalId },
+            metadata: { proposalId, taskTitle, budget },
             success_url: `${origin}/dashboard/client/proposals/success?session_id={CHECKOUT_SESSION_ID}`,
         });
         return NextResponse.redirect(session.url, 303)

@@ -15,7 +15,7 @@ const Login = () => {
 
     const router = useRouter();
     const searchParams = useSearchParams();
-    const redirectTo = searchParams.get("redirect") || "/dashboard";
+    const redirectTo = searchParams.get("redirect") || "/";
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button, Card, Badge } from "@heroui/react";
 import { Clock } from "lucide-react";
 
@@ -89,6 +89,7 @@ import { Clock } from "lucide-react";
 const ProposalsCard = ({ proposalsData }) => {
     const [proposals, setProposals] = useState(proposalsData);
     const [expandedTasks, setExpandedTasks] = useState({});
+    const router = useRouter();
 
     const toggleTask = (taskId) => {
         setExpandedTasks((prev) => ({
@@ -97,26 +98,38 @@ const ProposalsCard = ({ proposalsData }) => {
         }));
     };
 
-    const handleAccept = (taskId, proposalId) => {
-        if (!confirm("Accept this proposal and proceed to payment?")) return;
+    // const handleAccept = (taskId, proposalId) => {
+    //     if (!confirm("Accept this proposal and proceed to payment?")) return;
 
-        setProposals((prev) =>
-            prev.map((task) => {
-                if (task.taskId === taskId) {
-                    return {
-                        ...task,
-                        proposals: task.proposals.map((p) =>
-                            p._id === proposalId
-                                ? { ...p, status: "accepted" }
-                                : { ...p, status: "rejected" },
-                        ),
-                    };
-                }
-                return task;
-            }),
-        );
-        alert("Proposal accepted successfully!");
-    };
+    //     setProposals((prev) =>
+    //         prev.map((task) => {
+    //             if (task.taskId === taskId) {
+    //                 return {
+    //                     ...task,
+    //                     proposals: task.proposals.map((p) =>
+    //                         p._id === proposalId
+    //                             ? { ...p, status: "accepted" }
+    //                             : { ...p, status: "rejected" },
+    //                     ),
+    //                 };
+    //             }
+    //             return task;
+    //         }),
+    //     );
+    //     alert("Proposal accepted successfully!");
+    // };
+
+    // const handleCheckout = async (proposalId) => {
+    //     const res = await fetch("/api/checkout_sessions", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             proposalId,
+    //         }),
+    //     });
+    // };
 
     const handleReject = (taskId, proposalId) => {
         if (!confirm("Reject this proposal?")) return;
@@ -273,18 +286,40 @@ const ProposalsCard = ({ proposalsData }) => {
                                                             "pending" &&
                                                             !hasAccepted && (
                                                                 <div className="flex gap-2">
-                                                                    <Button
+                                                                    <form
+                                                                        action="/api/checkout_sessions"
+                                                                        method="POST"
+                                                                    >
+                                                                        <section>
+                                                                            <input
+                                                                                type="hidden"
+                                                                                name="proposalId"
+                                                                                value={
+                                                                                    proposal._id
+                                                                                }
+                                                                            />
+                                                                            <Button
+                                                                                type="submit"
+                                                                                role="link"
+                                                                                className="bg-emerald-600 hover:bg-emerald-700 text-white"
+                                                                            >
+                                                                                Accept
+                                                                            </Button>
+                                                                        </section>
+                                                                    </form>
+                                                                    {/* <Button
                                                                         size="sm"
                                                                         onClick={() =>
-                                                                            handleAccept(
+                                                                            handleCheckout(
                                                                                 task.taskId,
-                                                                                proposal._id,
+                                                                                task.taskTitle,
+                                                                                proposal.budget,
                                                                             )
                                                                         }
                                                                         className="bg-emerald-600 hover:bg-emerald-700 text-white"
                                                                     >
                                                                         Accept
-                                                                    </Button>
+                                                                    </Button> */}
                                                                     <Button
                                                                         size="sm"
                                                                         variant="outline"
